@@ -10,14 +10,15 @@ type ResultExpectable struct {
 	t       *testing.T
 	context *z.Context
 	result  z.Result
+	err     error
 }
 
 func RenderCheck(t *testing.T, result z.Result) *ResultExpectable {
 	response, request := testutil.NewTestRequestPair()
 	context := z.NewContext(response, request)
 
-	result.Render(context)
-	return &ResultExpectable{t, context, result}
+	err := result.Render(context)
+	return &ResultExpectable{t, context, result, err}
 }
 
 func (r *ResultExpectable) Code(code int) *ResultExpectable {
@@ -33,8 +34,18 @@ func (r *ResultExpectable) Header(key, value string) *ResultExpectable {
 }
 
 func (r *ResultExpectable) Body(body string) *ResultExpectable {
+	a.NoError(r.t, r.err)
+
 	raw := r.recorder().Body.Bytes()
 	a.Equal(r.t, body, string(raw), "response body does not match.")
+	return r
+}
+
+func (r *ResultExpectable) BodyContains(query string) *ResultExpectable {
+	a.NoError(r.t, r.err)
+
+	raw := r.recorder().Body.Bytes()
+	a.Contains(r.t, string(raw), query, "response body does not contains expected string.")
 	return r
 }
 
