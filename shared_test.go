@@ -33,6 +33,21 @@ func (r *ResultExpectable) Header(key, value string) *ResultExpectable {
 	return r
 }
 
+func (r *ResultExpectable) HeaderContains(key, query string) *ResultExpectable {
+	v, ok := r.recorder().Header()[key]
+	a.True(r.t, ok, "response does not have `%s` header.", key)
+	a.Contains(r.t, v[0], query, "header `%s` does not contains `%s`", key, query)
+	return r
+}
+
+func (r *ResultExpectable) EmptyBody() *ResultExpectable {
+	a.NoError(r.t, r.err)
+	raw := r.recorder().Body.Bytes()
+
+	a.Equal(r.t, len(raw), 0, "response unexpectedly contains body.")
+	return r
+}
+
 func (r *ResultExpectable) Body(body string) *ResultExpectable {
 	a.NoError(r.t, r.err)
 
