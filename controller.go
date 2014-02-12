@@ -3,7 +3,8 @@ package results
 import v "github.com/zaiuz/views"
 import z "github.com/zaiuz/zaiuz"
 
-// Controller mixin to provide simpler and straightforward result building in controllers.
+// Vanilla mixin for convenience to add to your controller to get simpler access to result
+// building methods.
 type Controller struct{}
 
 func (c *Controller) Func(render func(c *z.Context) error) z.Result {
