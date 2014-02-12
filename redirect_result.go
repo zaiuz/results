@@ -2,16 +2,16 @@ package results
 
 import z "github.com/zaiuz/zaiuz"
 
-type RedirectResult struct {
+type redirectResult struct {
 	Permanent bool
 	Url       string
 }
 
-func NewRedirectResult(permanent bool, url string) z.Result {
-	return &RedirectResult{permanent, url}
+func Redirect(permanent bool, url string) z.Result {
+	return &redirectResult{permanent, url}
 }
 
-func (result *RedirectResult) Render(c *z.Context) error {
+func (result *redirectResult) Render(c *z.Context) error {
 	target, e := c.Request.URL.Parse(result.Url)
 	if e != nil {
 		return e

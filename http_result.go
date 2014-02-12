@@ -3,26 +3,26 @@ package results
 import "net/http"
 import z "github.com/zaiuz/zaiuz"
 
-type HttpResult struct {
-	Code    int
-	Headers http.Header
+type httpResult struct {
+	code    int
+	headers http.Header
 }
 
-func NewHttpResult(code int, header string, values ...string) z.Result {
+func Http(code int, header string, values ...string) z.Result {
 	headers := make(http.Header)
 	if header != "" {
 		headers[header] = values
 	}
 
-	return &HttpResult{code, headers}
+	return &httpResult{code, headers}
 }
 
-func (r *HttpResult) Render(c *z.Context) error {
+func (r *httpResult) Render(c *z.Context) error {
 	header := c.ResponseWriter.Header()
-	for k, v := range r.Headers {
+	for k, v := range r.headers {
 		header[k] = v
 	}
 
-	c.ResponseWriter.WriteHeader(r.Code)
+	c.ResponseWriter.WriteHeader(r.code)
 	return nil
 }

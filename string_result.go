@@ -2,23 +2,23 @@ package results
 
 import z "github.com/zaiuz/zaiuz"
 
-type StringResult struct {
-	*HttpResult
-	String string
+type stringResult struct {
+	*httpResult
+	str string
 }
 
-func NewStringResult(code int, str string) z.Result {
-	http := NewHttpResult(code, "Content-Type", "text/plain").(*HttpResult)
-	return &StringResult{http, str}
+func String(code int, str string) z.Result {
+	http := Http(code, "Content-Type", "text/plain").(*httpResult)
+	return &stringResult{http, str}
 }
 
-func (r *StringResult) Render(c *z.Context) error {
-	e := r.HttpResult.Render(c)
+func (r *stringResult) Render(c *z.Context) error {
+	e := r.httpResult.Render(c)
 	if e != nil {
 		return e
 	}
 
-	raw := []byte(r.String)
+	raw := []byte(r.str)
 	_, e = c.ResponseWriter.Write(raw)
 	return e
 }

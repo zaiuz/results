@@ -3,18 +3,18 @@ package results
 import "encoding/json"
 import z "github.com/zaiuz/zaiuz"
 
-type JsonResult struct {
-	*HttpResult
+type jsonResult struct {
+	*httpResult
 	Object interface{}
 }
 
-func NewJsonResult(code int, object interface{}) z.Result {
-	http := NewHttpResult(code, "Content-Type", "application/json").(*HttpResult)
-	return &JsonResult{http, object}
+func Json(code int, object interface{}) z.Result {
+	http := Http(code, "Content-Type", "application/json").(*httpResult)
+	return &jsonResult{http, object}
 }
 
-func (r *JsonResult) Render(c *z.Context) error {
-	e := r.HttpResult.Render(c)
+func (r *jsonResult) Render(c *z.Context) error {
+	e := r.httpResult.Render(c)
 	if e != nil {
 		return e
 	}

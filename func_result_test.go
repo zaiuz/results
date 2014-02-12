@@ -6,7 +6,7 @@ import . "github.com/zaiuz/results"
 import z "github.com/zaiuz/zaiuz"
 import a "github.com/stretchr/testify/assert"
 
-func TestResultFunc(t *testing.T) {
+func TestFunc_Render(t *testing.T) {
 	context := testutil.NewTestContext()
 
 	var calledContext *z.Context = nil
@@ -18,7 +18,7 @@ func TestResultFunc(t *testing.T) {
 		return nil
 	}
 
-	result := ResultFunc(execute)
+	result := Func(execute)
 	a.NotNil(t, result, "cannot create result from a function.")
 
 	e := result.Render(context)
@@ -27,8 +27,8 @@ func TestResultFunc(t *testing.T) {
 	a.Equal(t, context, calledContext, "function given wrong context instance.")
 }
 
-func TestDudResult(t *testing.T) {
-	result := DudResult()
+func TestDud_Render(t *testing.T) {
+	result := Dud()
 	a.NotNil(t, result, "cannot create dud result.")
 
 	test := func() {
