@@ -2,7 +2,7 @@ package results
 
 import z "github.com/zaiuz/zaiuz"
 
-type funcResult struct{
+type funcResult struct {
 	render func(c *z.Context) error
 }
 
