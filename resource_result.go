@@ -1,5 +1,6 @@
 package results
 
+import "strings"
 import z "github.com/zaiuz/zaiuz"
 
 type ResourceRepresentable struct {
@@ -30,9 +31,11 @@ func (b *ResourceRepresentable) Mime(mime string, r z.Result) *ResourceRepresent
 
 func (b *ResourceRepresentable) Render(c *z.Context) error {
 	accepts := c.Request.Header["Accept"]
-	for _, mimetype := range accepts {
-		if result, ok := b.representations[mimetype]; ok {
-			return result.Render(c)
+	for _, accept := range accepts {
+		for _, mimetype := range strings.Split(accept, ",") {
+			if result, ok := b.representations[mimetype]; ok {
+				return result.Render(c)
+			}
 		}
 	}
 

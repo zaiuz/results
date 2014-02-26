@@ -58,6 +58,19 @@ func TestResource_Render_Mime(t *testing.T) {
 		Body("custom result")
 }
 
+func TestResource_Render_SafariAccept(t *testing.T) {
+	// real Accept header taken from Safari 7.0.1 ML
+	result := newTestResourceResult(t)
+	headers := map[string][]string{
+		"Accept": []string{"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"},
+	}
+
+	RenderCheck2(t, result, headers).
+		Code(200).
+		Header("Content-Type", "text/html").
+		Body(templateOutput)
+}
+
 func newTestResourceResult(t *testing.T) z.Result {
 	return Resource().
 		Json(Json(200, "json result")).
