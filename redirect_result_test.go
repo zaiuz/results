@@ -23,3 +23,12 @@ func TestRedirect_Render_Permanent(t *testing.T) {
 		HeaderContains("Location", "/another/url").
 		EmptyBody()
 }
+
+func TestRedirect_Render_WithArgs(t *testing.T) {
+	result := Redirect(false, "/section/%s/subsection/%d", "hello", 1)
+	a.NotNil(t, result, "cannot create redir result with args.")
+
+	RenderCheck(t, result).
+		HeaderContains("Location", "/section/hello/subsection/1").
+		EmptyBody()
+}

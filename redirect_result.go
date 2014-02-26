@@ -1,5 +1,6 @@
 package results
 
+import "fmt"
 import z "github.com/zaiuz/zaiuz"
 
 type redirectResult struct {
@@ -7,7 +8,9 @@ type redirectResult struct {
 	Url       string
 }
 
-func Redirect(permanent bool, url string) z.Result {
+func Redirect(permanent bool, url string, args ...interface{}) z.Result {
+	// TODO: properly url-escape and query-escape formatted things.
+	url = fmt.Sprintf(url, args...)
 	return &redirectResult{permanent, url}
 }
 
