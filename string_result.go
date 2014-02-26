@@ -1,5 +1,6 @@
 package results
 
+import "fmt"
 import z "github.com/zaiuz/zaiuz"
 
 type stringResult struct {
@@ -7,7 +8,8 @@ type stringResult struct {
 	str string
 }
 
-func String(code int, str string) z.Result {
+func String(code int, str string, args ...interface{}) z.Result {
+	str = fmt.Sprintf(str, args...)
 	http := Http(code, "Content-Type", "text/plain").(*httpResult)
 	return &stringResult{http, str}
 }

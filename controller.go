@@ -27,8 +27,8 @@ func (c *Controller) Redirect(permanent bool, url string, args ...interface{}) z
 	return Redirect(permanent, url, args...)
 }
 
-func (c *Controller) String(code int, str string) z.Result {
-	return String(code, str)
+func (c *Controller) String(code int, str string, args ...interface{}) z.Result {
+	return String(code, str, args...)
 }
 
 func (c *Controller) View(view v.View, data interface{}) z.Result {
