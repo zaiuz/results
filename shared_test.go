@@ -14,11 +14,19 @@ type ResultExpectable struct {
 }
 
 func RenderCheck(t *testing.T, result z.Result) *ResultExpectable {
-	response, request := testutil.NewTestRequestPair()
-	context := z.NewContext(response, request)
+	return RenderCheck2(t, result, nil)
+}
 
-	err := result.Render(context)
-	return &ResultExpectable{t, context, result, err}
+func RenderCheck2(t *testing.T, r z.Result, headers map[string][]string) *ResultExpectable {
+	response, request := testutil.NewTestRequestPair()
+	for key, values := range headers {
+		request.Header[key] = values
+	}
+
+	context := z.NewContext(response, request)
+	e := r.Render(context)
+	return &ResultExpectable{t, context, r, e}
+
 }
 
 func (r *ResultExpectable) Code(code int) *ResultExpectable {

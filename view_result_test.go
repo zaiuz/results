@@ -19,7 +19,7 @@ func TestView_Render(t *testing.T) {
 
 	RenderCheck(t, result).
 		Code(200).
-		Header("Content-Type", "text/plain").
+		Header("Content-Type", "text/html").
 		Body(templateOutput)
 }
 
@@ -31,7 +31,7 @@ func TestView_Render_WithData(t *testing.T) {
 
 	RenderCheck(t, result).
 		Code(200).
-		Header("Content-Type", "text/plain").
+		Header("Content-Type", "text/html").
 		BodyContains(`foobar`)
 }
 
@@ -46,5 +46,5 @@ func getTestView(t *testing.T) v.View {
 	a.NoError(t, e)
 	file.Close()
 
-	return v.NewTextView(filename)
+	return v.NewHtmlView(filename)
 }
