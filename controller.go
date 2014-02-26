@@ -34,3 +34,7 @@ func (c *Controller) String(code int, str string, args ...interface{}) z.Result 
 func (c *Controller) View(view v.View, data interface{}) z.Result {
 	return View(view, data)
 }
+
+func (c *Controller) Resource() *ResourceRepresentable {
+	return Resource()
+}
