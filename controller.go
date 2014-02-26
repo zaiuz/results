@@ -23,8 +23,8 @@ func (c *Controller) Json(code int, object interface{}) z.Result {
 	return Json(code, object)
 }
 
-func (c *Controller) Redirect(permanent bool, url string) z.Result {
-	return Redirect(permanent, url)
+func (c *Controller) Redirect(permanent bool, url string, args ...interface{}) z.Result {
+	return Redirect(permanent, url, args...)
 }
 
 func (c *Controller) String(code int, str string) z.Result {
