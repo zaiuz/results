@@ -7,8 +7,8 @@ import z "github.com/zaiuz/zaiuz"
 // building methods.
 type Controller struct{}
 
-func (c *Controller) Func(render func(c *z.Context) error) z.Result {
-	return Func(render)
+func (c *Controller) RenderFunc(render func(c *z.Context) error) z.Result {
+	return RenderFunc(render)
 }
 
 func (c *Controller) Dud() z.Result {

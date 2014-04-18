@@ -18,7 +18,7 @@ func TestFunc_Render(t *testing.T) {
 		return nil
 	}
 
-	result := Func(execute)
+	result := RenderFunc(execute)
 	a.NotNil(t, result, "cannot create result from a function.")
 
 	e := result.Render(context)
