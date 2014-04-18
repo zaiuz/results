@@ -25,7 +25,7 @@ func TestRedirect_Render_Permanent(t *testing.T) {
 }
 
 func TestRedirect_Render_WithArgs(t *testing.T) {
-	result := Redirect(false, "/section/%s/subsection/%d", "hello", 1)
+	result := Redirect("/section/%s/subsection/%d", "hello", 1)
 	a.NotNil(t, result, "cannot create redir result with args.")
 
 	RenderCheck(t, result).
