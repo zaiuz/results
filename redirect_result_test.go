@@ -5,7 +5,7 @@ import . "github.com/zaiuz/results"
 import a "github.com/stretchr/testify/assert"
 
 func TestRedirect_Render_Temporary(t *testing.T) {
-	result := Redirect(false, "/another/url")
+	result := Redirect("/%s/url", "another")
 	a.NotNil(t, result, "cannot create temporary redir result.")
 
 	RenderCheck(t, result).
@@ -15,7 +15,7 @@ func TestRedirect_Render_Temporary(t *testing.T) {
 }
 
 func TestRedirect_Render_Permanent(t *testing.T) {
-	result := Redirect(true, "/another/url")
+	result := PermanentRedirect("/%s/url", "another")
 	a.NotNil(t, result, "cannot create permanent redir result.")
 
 	RenderCheck(t, result).

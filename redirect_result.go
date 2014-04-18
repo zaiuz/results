@@ -8,10 +8,15 @@ type redirectResult struct {
 	Url       string
 }
 
-func Redirect(permanent bool, url string, args ...interface{}) z.Result {
-	// TODO: properly url-escape and query-escape formatted things.
-	url = fmt.Sprintf(url, args...)
-	return &redirectResult{permanent, url}
+// TODO: Properly url-escape and query-escape formatted things.
+//   Otherwise doc the assumption that the url is safe (since this is mostly used
+//   to format model ids into the string anyway.)
+func Redirect(url string, args ...interface{}) z.Result {
+	return &redirectResult{false, fmt.Sprintf(url, args...)}
+}
+
+func PermanentRedirect(url string, args ...interface{}) z.Result {
+	return &redirectResult{true, fmt.Sprintf(url, args...)}
 }
 
 func (result *redirectResult) Render(c *z.Context) error {
