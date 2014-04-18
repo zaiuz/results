@@ -11,6 +11,10 @@ func (c *Controller) RenderFunc(render func(c *z.Context) error) z.Result {
 	return RenderFunc(render)
 }
 
+func (c *Controller) Defer(resolve z.Action) z.Result {
+	return Defer(resolve)
+}
+
 func (c *Controller) Dud() z.Result {
 	return Dud()
 }
