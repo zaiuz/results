@@ -6,6 +6,16 @@ import "github.com/zaiuz/testutil"
 import z "github.com/zaiuz/zaiuz"
 import a "github.com/stretchr/testify/assert"
 
+type ContextHolder struct {
+	context       *z.Context
+	calledContext *z.Context
+}
+
+func NewContextHolder() *contextHolder {
+	context := testutil.NewTestContext()
+	return &contextHolder{context, nil}
+}
+
 type ResultExpectable struct {
 	t       *testing.T
 	context *z.Context
